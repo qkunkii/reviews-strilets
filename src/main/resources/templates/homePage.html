@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Головна - R&T</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'merriweather', serif; /* Виправлено одинарні лапки */
+      background-color: #1a1a1a;
+      color: #e0e0e0;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    a {
+      color: #4da6ff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: #80bfff;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    h1, h2, h3 {
+      margin-bottom: 0.8em;
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: 2.8em;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: 2em;
+      text-align: center;
+      margin-bottom: 1.5em;
+      padding-top: 1em;
+    }
+
+    h3 {
+      font-size: 1.4em;
+      color: #f0f0f0;
+    }
+
+    p {
+      margin-bottom: 1em;
+    }
+
+    header {
+      background-color: #2c2c2c;
+      padding: 1rem 0;
+      border-bottom: 1px solid #444;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    /* Стилі для інформації користувача та навігації */
+    .user-actions {
+      display: flex;
+      align-items: center;
+    }
+
+    .user-info span {
+      margin-right: 20px;
+      color: #cccccc;
+      font-size: 0.95em;
+    }
+
+    nav ul {
+      display: flex;
+    }
+
+    nav ul li {
+      margin-left: 15px; /* Зменшено відступ */
+    }
+
+    nav ul li a {
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 0.9em; /* Зменшено розмір шрифту */
+    }
+
+    nav ul li a:hover {
+      background-color: #3a3a3a;
+      color: #ffffff;
+    }
+
+    /* Стиль для кнопки Вийти (можна зробити більш виразним) */
+    nav ul li a.logout-button {
+      background-color: #555; /* Темніший фон */
+      color: #e0e0e0;
+    }
+    nav ul li a.logout-button:hover {
+      background-color: #d9534f; /* Червоний при наведенні */
+      color: #ffffff;
+    }
+
+
+    main {
+      flex-grow: 1;
+      padding: 2rem 0; /* Додано відступ для main */
+    }
+
+    .cta-button {
+      display: inline-block;
+      background-color: #007bff;
+      color: #ffffff;
+      padding: 10px 20px; /* Трохи зменшено паддінг */
+      border-radius: 5px;
+      font-size: 1em; /* Трохи зменшено шрифт */
+      font-weight: bold;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      margin-top: 10px; /* Додано відступ зверху */
+    }
+
+    .cta-button:hover {
+      background-color: #0056b3;
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    /* Секція списку компаній */
+    .company-list {
+      padding: 3rem 0;
+      background-color: #222222;
+    }
+
+    .company-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Змінено minmax */
+      gap: 2rem;
+    }
+
+    .company-item {
+      background-color: #2c2c2c;
+      padding: 1.8rem;
+      border-radius: 8px;
+      border: 1px solid #444;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex; /* Для кращого компонування */
+      flex-direction: column;
+      justify-content: space-between; /* Розмістити кнопку внизу */
+    }
+
+    .company-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 123, 255, 0.1);
+    }
+
+    .company-item h3 {
+      margin-bottom: 0.8em;
+    }
+
+    .company-item p { /* Стиль для опису компанії, якщо він буде */
+      color: #b0b0b0;
+      font-size: 0.95em;
+      flex-grow: 1; /* Займає доступний простір */
+      margin-bottom: 1em;
+    }
+
+    footer {
+      background-color: #2c2c2c;
+      color: #aaaaaa;
+      text-align: center;
+      padding: 1.5rem 0;
+      margin-top: auto;
+      border-top: 1px solid #444;
+    }
+
+    footer p {
+      margin-bottom: 0.5em;
+    }
+
+    footer a {
+      color: #80bfff;
+    }
+
+    footer a:hover {
+      color: #aaccff;
+    }
+
+    @media (max-width: 768px) {
+      header .container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .user-actions {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 15px;
+      }
+      .user-info span {
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+      nav ul {
+        margin-top: 10px;
+        padding-left: 0; /* Забрати відступ списку */
+        justify-content: center; /* Центрувати кнопки */
+        flex-wrap: wrap; /* Дозволити перенос кнопок */
+      }
+      nav ul li {
+        margin: 5px; /* Додати відступи між кнопками */
+      }
+      .company-grid {
+        grid-template-columns: 1fr;
+      }
+      h2 {
+        font-size: 1.8em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="logo">R&T</div>
+    <div class="user-actions">
+      <div class="user-info">
+        <span th:text="'Вітаємо, ' + ${username}"></span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="/my-reviews">Ваші відгуки</a></li>
+          <li><a href="/add-review">Додати відгук</a></li>
+          <li><a href="/logout" class="logout-button">Вийти</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="company-list">
+    <div class="container">
+      <h2>Доступні сервіси для відгуку</h2>
+
+      <div th:if="${companies == null or #lists.isEmpty(companies)}">
+        <p style="text-align: center; color: #ccc;">На даний момент немає компаній для оцінки.</p>
+      </div>
+
+      <div class="company-grid" th:if="${companies != null and not #lists.isEmpty(companies)}">
+        <div class="company-item" th:each="company : ${companies}">
+          <div> <h3 th:text="${company.name}">Назва Компанії</h3>
+          </div>
+          <a th:href="@{/reviews/product/{id}(id=${company.id})}" class="cta-button">Залишити відгук</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2025 R&T. Всі права захищено.</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Платформа Управління Відгуками та Рейтингами</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'merriweather', serif;'
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        a {
+            color: #4da6ff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #80bfff;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        h1, h2, h3 {
+            margin-bottom: 0.8em;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 2.8em;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 1.5em;
+            padding-top: 1em;
+        }
+
+        h3 {
+            font-size: 1.4em;
+            color: #f0f0f0;
+        }
+
+        p {
+            margin-bottom: 1em;
+        }
+
+        header {
+            background-color: #2c2c2c;
+            padding: 1rem 0;
+            border-bottom: 1px solid #444;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        nav ul {
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        nav ul li a.active {
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #444;
+        }
+
+        nav ul li a:hover:not(.active) {
+            background-color: #3a3a3a;
+            color: #ffffff;
+        }
+
+        main {
+            flex-grow: 1;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8));
+            background-color: #222;
+            background-size: cover;
+            background-position: center;
+            color: #ffffff;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            margin-bottom: 0.5em;
+        }
+
+        .hero .subtitle {
+            font-size: 1.2em;
+            margin-bottom: 1.5em;
+            color: #cccccc;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #0056b3;
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .features {
+            padding: 4rem 0;
+            background-color: #222222;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-item {
+            background-color: #2c2c2c;
+            padding: 1.8rem;
+            border-radius: 8px;
+            border: 1px solid #444;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.1);
+        }
+
+        .feature-item h3 {
+            margin-bottom: 0.8em;
+        }
+
+        .technology {
+            padding: 3rem 0;
+            background-color: #1a1a1a;
+            text-align: center;
+        }
+
+        .technology ul {
+            margin-top: 1.5em;
+            padding-left: 0;
+            display: inline-block;
+            text-align: left;
+        }
+
+        .technology li {
+            margin-bottom: 0.5em;
+            font-size: 1.1em;
+        }
+
+        .tech-highlight {
+            color: #58a6ff;
+            font-weight: 600;
+        }
+
+        footer {
+            background-color: #2c2c2c;
+            color: #aaaaaa;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: auto;
+            border-top: 1px solid #444;
+        }
+
+        footer p {
+            margin-bottom: 0.5em;
+        }
+
+        footer a {
+            color: #80bfff;
+        }
+
+        footer a:hover {
+            color: #aaccff;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2em;
+            }
+            .hero {
+                padding: 3rem 0;
+            }
+            header .container {
+                flex-direction: column;
+                align-items: center;
+            }
+            nav ul {
+                margin-top: 10px;
+            }
+            nav ul li {
+                margin: 0 10px;
+            }
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <div class="logo">R&T</div>
+        <nav>
+            <ul>
+                <li><a href="/" class="active">Головна</a></li>
+                <li><a href="#features">Можливості</a></li>
+                <li><a href="#tech">Технології</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section class="hero">
+        <div class="container">
+            <h1>Сучасна платформа для управління відгуками та рейтингами</h1>
+            <p class="subtitle">Збирайте, аналізуйте та керуйте відгуками клієнтів ефективно. Покращуйте свій сервіс на основі реального зворотного зв'язку.</p>
+            <a href="/start" class="cta-button">Почати</a>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2>Ключові Можливості</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <h3>Гнучкі Рейтинги</h3>
+                    <p>Використовуйте зрозумілу систему рейтингів для швидкої оцінки продуктів чи послуг.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Аналітика Відгуків</h3>
+                    <p>Отримуйте цінну інформацію про настрої клієнтів та ключові аспекти їхніх відгуків.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Керування та Модерація</h3>
+                    <p>Модерація сервісу активно працює, щоб всі відгуки були об'єктивними та цінними для вас.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tech" class="technology">
+        <div class="container">
+            <h2>Побудовано на Надійних Технологіях</h2>
+            <p>Наша платформа розроблена з використанням сучасних та перевірених рішень для забезпечення стабільності, швидкості та масштабованості.</p>
+            <ul>
+                <li><span class="tech-highlight">Spring Boot:</span> Потужний фреймворк для створення надійних Java-додатків.</li>
+                <li><span class="tech-highlight">REST API:</span> Гнучка архітектура для інтеграції з іншими системами.</li>
+                <li><span class="tech-highlight">Сучасний Frontend:</span> Інтуїтивно зрозумілий інтерфейс користувача.</li>
+            </ul>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2025 R&T. Всі права захищено.</p>
+    </div>
+</footer>
+
+</body>
+</html>
