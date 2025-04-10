@@ -1,10 +1,12 @@
 package com.strilets.reviews.Controller;
 
+import com.strilets.reviews.Model.Product;
 import com.strilets.reviews.Model.User;
+import com.strilets.reviews.Repository.ProductRepository;
 import com.strilets.reviews.Repository.UserRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.error.ErrorController;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +20,7 @@ public class MainController {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private ErrorController errorController;
+    private ProductRepository productRepository;
 
 
     @GetMapping("/")
@@ -26,8 +28,8 @@ public class MainController {
         return "index";
     }
     @GetMapping("/start")
-    public String start(HttpSession httpSession, Model model) {
-        if(httpSession.getAttribute("role") == null) {
+    public String start(HttpSession httpSession, Model model) {;
+        if(httpSession.getAttribute("user") == null) {
             return "login";
         }
         else{
@@ -39,8 +41,11 @@ public class MainController {
     public String login(HttpSession httpSession, Model model, @RequestParam String login, @RequestParam String password) {
         Optional<User> user = userRepository.findUserByUsername(login);
         if(user.isPresent() && user.get().getPassword().equalsIgnoreCase(password)) {
-            model.addAttribute("username", login);
-            httpSession.setAttribute("user", user);
+            httpSession.setAttribute("role", user.get().getRole());
+            model.addAttribute("username", user.get().getUsername());
+            httpSession.setAttribute("username", user.get().getUsername());
+            Iterable<Product> companies = productRepository.findAllByConfirmed(true);
+            model.addAttribute("companies", companies);
             return "homePage";
         }
         else if(user.isPresent()) {
@@ -73,8 +78,10 @@ public class MainController {
         else{
             User user = new User(login, email, password, "user");
             userRepository.save(user);
-
-            httpSession.setAttribute("user", user);
+            Iterable<Product> companies = productRepository.findAllByConfirmed(true);
+            model.addAttribute("companies", companies);
+            model.addAttribute("username", login);
+            httpSession.setAttribute("username", login);
             httpSession.setAttribute("role", "user");
             return "homePage";
         }
@@ -83,5 +90,15 @@ public class MainController {
     public String logout(HttpSession httpSession, Model model) {
         httpSession.invalidate();
         return "redirect:/";
+    }
+    @GetMapping("/home")
+    public String home(HttpSession httpSession, Model model) {
+        if(httpSession.getAttribute("username").toString() == null) {
+            return "redirect:/start";
+        }
+        model.addAttribute("username", httpSession.getAttribute("username").toString());
+        Iterable<Product> companies = productRepository.findAllByConfirmed((true));
+        model.addAttribute("companies", companies);
+        return "homePage";
     }
 }

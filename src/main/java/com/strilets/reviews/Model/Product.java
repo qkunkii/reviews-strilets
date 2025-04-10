@@ -10,9 +10,16 @@ public class Product {
     private Long id;
     private String name;
     private String url;
+    private boolean confirmed;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;
+
+    public Product(String name, String url, boolean confirmed) {
+        this.name = name;
+        this.url = url;
+        this.confirmed = confirmed;
+    }
 
     public Product() {}
     public Long getId() {
@@ -37,6 +44,14 @@ public class Product {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
     }
 
     public List<Review> getReviews() {

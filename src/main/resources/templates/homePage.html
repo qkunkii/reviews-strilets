@@ -15,8 +15,8 @@
     }
 
     body {
-      font-family: 'merriweather', serif; /* Виправлено одинарні лапки */
-      background-color: #1a1a1a;
+      font-family: 'merriweather', serif;
+      background-color: #222222;
       color: #e0e0e0;
       line-height: 1.6;
       display: flex;
@@ -43,6 +43,7 @@
 
     ul {
       list-style: none;
+      padding-left: 0;
     }
 
     h1, h2, h3 {
@@ -52,15 +53,11 @@
     }
 
     h1 {
-      font-size: 2.8em;
+      font-size: 2.5em;
       line-height: 1.2;
-    }
-
-    h2 {
-      font-size: 2em;
       text-align: center;
-      margin-bottom: 1.5em;
-      padding-top: 1em;
+      margin-top: 1.5em;
+      margin-bottom: 1em;
     }
 
     h3 {
@@ -93,10 +90,43 @@
       color: #ffffff;
     }
 
-    /* Стилі для інформації користувача та навігації */
     .user-actions {
       display: flex;
       align-items: center;
+    }
+
+    .user-info {
+      margin-right: 20px;
+      color: #cccccc;
+    }
+
+    nav ul {
+      display: flex;
+    }
+
+    nav ul li {
+      margin-left: 20px;
+    }
+
+    nav ul li a {
+      padding: 5px 10px;
+      border-radius: 4px;
+      display: block;
+    }
+
+    nav ul li a:hover:not(.active) {
+      background-color: #3a3a3a;
+      color: #ffffff;
+    }
+
+    .logout-button {
+      color: #ff6b6b;
+      font-weight: bold;
+    }
+
+    .logout-button:hover {
+      color: #ff8f8f;
+      background-color: #443030;
     }
 
     .user-info span {
@@ -110,13 +140,13 @@
     }
 
     nav ul li {
-      margin-left: 15px; /* Зменшено відступ */
+      margin-left: 15px;
     }
 
     nav ul li a {
       padding: 5px 10px;
       border-radius: 4px;
-      font-size: 0.9em; /* Зменшено розмір шрифту */
+      font-size: 0.9em;
     }
 
     nav ul li a:hover {
@@ -124,32 +154,32 @@
       color: #ffffff;
     }
 
-    /* Стиль для кнопки Вийти (можна зробити більш виразним) */
     nav ul li a.logout-button {
-      background-color: #555; /* Темніший фон */
+      background-color: #555;
       color: #e0e0e0;
     }
     nav ul li a.logout-button:hover {
-      background-color: #d9534f; /* Червоний при наведенні */
+      background-color: #d9534f;
       color: #ffffff;
     }
 
 
     main {
       flex-grow: 1;
-      padding: 2rem 0; /* Додано відступ для main */
+      padding: 2rem 0;
     }
 
     .cta-button {
       display: inline-block;
       background-color: #007bff;
       color: #ffffff;
-      padding: 10px 20px; /* Трохи зменшено паддінг */
+      padding: 10px 20px;
+      text-align: center;
       border-radius: 5px;
-      font-size: 1em; /* Трохи зменшено шрифт */
+      font-size: 1em;
       font-weight: bold;
       transition: background-color 0.3s ease, transform 0.2s ease;
-      margin-top: 10px; /* Додано відступ зверху */
+      margin-top: 10px;
     }
 
     .cta-button:hover {
@@ -158,15 +188,13 @@
       transform: translateY(-2px);
     }
 
-    /* Секція списку компаній */
     .company-list {
-      padding: 3rem 0;
       background-color: #222222;
     }
 
     .company-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Змінено minmax */
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 2rem;
     }
 
@@ -176,9 +204,9 @@
       border-radius: 8px;
       border: 1px solid #444;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      display: flex; /* Для кращого компонування */
+      display: flex;
       flex-direction: column;
-      justify-content: space-between; /* Розмістити кнопку внизу */
+      justify-content: space-between;
     }
 
     .company-item:hover {
@@ -190,11 +218,12 @@
       margin-bottom: 0.8em;
     }
 
-    .company-item p { /* Стиль для опису компанії, якщо він буде */
+    .company-item p {
       color: #b0b0b0;
       font-size: 0.95em;
-      flex-grow: 1; /* Займає доступний простір */
+      flex-grow: 1;
       margin-bottom: 1em;
+      overflow: hidden;
     }
 
     footer {
@@ -217,6 +246,9 @@
     footer a:hover {
       color: #aaccff;
     }
+    .container h2{
+      text-align: center;
+    }
 
     @media (max-width: 768px) {
       header .container {
@@ -234,12 +266,12 @@
       }
       nav ul {
         margin-top: 10px;
-        padding-left: 0; /* Забрати відступ списку */
-        justify-content: center; /* Центрувати кнопки */
-        flex-wrap: wrap; /* Дозволити перенос кнопок */
+        padding-left: 0;
+        justify-content: center;
+        flex-wrap: wrap;
       }
       nav ul li {
-        margin: 5px; /* Додати відступи між кнопками */
+        margin: 5px;
       }
       .company-grid {
         grid-template-columns: 1fr;
@@ -261,8 +293,9 @@
       </div>
       <nav>
         <ul>
+          <li><a href="/home">Головна</a></li>
           <li><a href="/my-reviews">Ваші відгуки</a></li>
-          <li><a href="/add-review">Додати відгук</a></li>
+          <li><a href="/suggest">Запропонувати сервіс</a></li>
           <li><a href="/logout" class="logout-button">Вийти</a></li>
         </ul>
       </nav>
@@ -282,8 +315,10 @@
       <div class="company-grid" th:if="${companies != null and not #lists.isEmpty(companies)}">
         <div class="company-item" th:each="company : ${companies}">
           <div> <h3 th:text="${company.name}">Назва Компанії</h3>
+            <p th:text="${company.url}"></p>
           </div>
-          <a th:href="@{/reviews/product/{id}(id=${company.id})}" class="cta-button">Залишити відгук</a>
+
+          <a th:href="'/product/' +${company.id}" class="cta-button">Залишити відгук</a>
         </div>
       </div>
     </div>
