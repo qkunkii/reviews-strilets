@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Інформація про продукт</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Merriweather', serif;
+      background-color: #1a1a1a;
+      color: #e0e0e0;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 25px;
+      background-color: #2c2c2c;
+      border-radius: 8px;
+      border: 1px solid #444;
+      flex-grow: 1;
+    }
+
+    h1, h2 {
+      color: #ffffff;
+      margin-bottom: 1em;
+      font-weight: 600;
+      border-bottom: 1px solid #555;
+      padding-bottom: 0.5em;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 1.8em;
+      margin-top: 1.5em;
+    }
+
+    p {
+      margin-bottom: 1em;
+    }
+
+    p strong {
+      color: #f0f0f0;
+    }
+
+    a {
+      color: #4da6ff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: #80bfff;
+      text-decoration: underline;
+    }
+
+    form {
+      margin-top: 1.5em;
+      background-color: #3a3a3a;
+      padding: 20px;
+      border-radius: 5px;
+      border: 1px solid #555;
+    }
+
+    form div {
+      margin-bottom: 1em;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5em;
+      color: #f0f0f0;
+      font-weight: 500;
+    }
+
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      background-color: #1a1a1a;
+      color: #e0e0e0;
+      border: 1px solid #555;
+      border-radius: 4px;
+      font-family: 'Merriweather', serif;
+      font-size: 1em;
+    }
+
+    input[type="text"]:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #4da6ff;
+      box-shadow: 0 0 5px rgba(77, 166, 255, 0.3);
+    }
+
+    input[readonly] {
+      background-color: #444;
+      cursor: not-allowed;
+    }
+
+    button[type="submit"] {
+      display: inline-block;
+      background-color: #007bff;
+      color: #ffffff;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      font-family: 'Merriweather', serif;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #0056b3;
+      transform: translateY(-2px);
+    }
+    form a{
+      display: inline-block;
+      background-color: #b30202;
+      color: #ffffff;
+      padding: 10px 25px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      font-family: 'Merriweather', serif;
+
+    }
+    form a:hover{
+      background-color: #770000;
+      transform: translateY(-2px);
+      text-decoration: none;
+      color: #ffffff;
+    }
+    .form-buttons{
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 1em;
+    }
+
+    li {
+      background-color: #3a3a3a;
+      padding: 15px;
+      margin-bottom: 1em;
+      border-radius: 5px;
+      border: 1px solid #555;
+    }
+
+    li p {
+      margin-bottom: 0.5em;
+    }
+
+    hr {
+      border: 0;
+      height: 1px;
+      background-color: #555;
+      margin: 1em 0;
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+<h1>Деталі продукту</h1>
+
+<div>
+  <p><strong>Назва:</strong> <span th:text="${product.name}">Назва продукту</span></p>
+  <p><strong>URL:</strong> <a th:href="${product.url}" th:text="${product.url}">Посилання</a></p>
+</div>
+
+<h2>Додати відгук</h2>
+<form th:action="'/product/'+${product.id}+'/add'"  method="post">
+  <div>
+    <label for="rating">Оцінка:</label>
+    <select id="rating" name="rating">
+      <option value="1" selected>1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+  </div>
+  <div>
+    <label for="content">Текст відгуку:</label><br>
+    <textarea id="content" name="content" rows="4" cols="50"></textarea>
+  </div>
+  <div>
+    <label for="username">Ваш логін:</label>
+    <input type="text" id="username" name="username" th:value="${session.username}" readonly />
+  </div>
+  <div class="form-buttons">
+    <a href="/home">Скасувати</a><button type="submit">Надіслати</button>
+  </div>
+
+</form>
+
+<h2>Відгуки</h2>
+<div th:if="${reviews != null or !reviews.isEmpty()}">
+  <ul>
+    <li th:each="review : ${reviews}">
+      <p><strong>Оцінка:</strong> <span th:text="${review.rating}">0</span>/5</p>
+      <p><strong>Відгук:</strong> <span th:text="${review.content}">Текст відгуку</span></p>
+      <hr>
+      <p><strong>Користувач:</strong> <span th:text="${review.getUser().username}">Юзер</span></p>
+    </li>
+  </ul>
+</div>
+<div th:if="${reviews == null or reviews.isEmpty()}">
+  <p>Немає відгуків.</p>
+</div>
+</div>
+</body>
+</html>

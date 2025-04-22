@@ -15,4 +15,8 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     Iterable<Review> findAllByProductAndConfirmed(Product prod, Boolean conf);
 
     Iterable<Review> findAllByUser(User user);
+
+    Iterable<Review> findAllByProduct(Product product);
+
+    Iterable<Review> findAllByConfirmed(boolean confirmed);
 }

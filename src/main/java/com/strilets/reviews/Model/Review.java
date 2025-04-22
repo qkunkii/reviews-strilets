@@ -20,6 +20,15 @@ public class Review {
     private User user;
 
     public Review() {}
+
+    public Review(String content, int rating, boolean confirmed, Product product, User user) {
+        this.content = content;
+        this.rating = rating;
+        this.confirmed = confirmed;
+        this.product = product;
+        this.user = user;
+    }
+
     public Long getId() {
         return id;
     }

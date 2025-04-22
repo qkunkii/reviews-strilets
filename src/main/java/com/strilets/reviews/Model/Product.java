@@ -12,7 +12,8 @@ public class Product {
     private String url;
     private boolean confirmed;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Review> reviews;
 
     public Product(String name, String url, boolean confirmed) {
@@ -22,6 +23,9 @@ public class Product {
     }
 
     public Product() {}
+
+
+
     public Long getId() {
         return id;
     }

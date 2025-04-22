@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Кабінет компанії</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Merriweather', serif;
+      background-color: #1a1a1a;
+      color: #e0e0e0;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    a {
+      color: #4da6ff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: #80bfff;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    header {
+      background-color: #2c2c2c;
+      padding: 1rem 0;
+      border-bottom: 1px solid #444;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    .user-actions {
+      display: flex;
+      align-items: center;
+    }
+
+    .user-info {
+      color: #cccccc;
+    }
+
+    main {
+      flex-grow: 1;
+      padding: 2rem 0 3rem;
+    }
+
+    h1, h2, h3 {
+      margin-bottom: 0.8em;
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      line-height: 1.2;
+      text-align: center;
+      margin-top: 1em;
+      margin-bottom: 0.8em;
+    }
+
+
+
+    h3 {
+      font-size: 1.4em;
+      color: #f0f0f0;
+    }
+
+    p {
+      margin-bottom: 1em;
+      color: #e0e0e0;
+    }
+
+    .welcome-message {
+      text-align: center;
+      font-size: 1.15em;
+      color: #cccccc;
+      margin-bottom: 2.5em;
+    }
+
+    .welcome-message strong {
+      color: #ffffff;
+    }
+
+    .no-reviews-message {
+      background-color: #2c2c2c;
+      border: 1px solid #444;
+      padding: 1.5em 2em;
+      border-radius: 8px;
+      text-align: center;
+      margin: 2em auto;
+      max-width: 600px;
+    }
+
+    .review-item {
+      background-color: #2c2c2c;
+      border: 1px solid #444;
+      border-radius: 8px;
+      padding: 1.5em 2em;
+      margin-bottom: 1.5em;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .review-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(77, 166, 255, 0.08);
+    }
+
+    .review-item p {
+      margin-bottom: 0.7em;
+      color: #cccccc;
+      line-height: 1.7;
+    }
+
+    .review-item p strong {
+      color: #ffffff;
+      margin-right: 0.5em;
+      display: inline-block;
+      min-width: 130px;
+    }
+
+    .review-item hr {
+      border: none;
+      border-top: 1px solid #444;
+      margin: 1.5em 0 1em 0;
+    }
+
+    footer {
+      background-color: #2c2c2c;
+      color: #aaaaaa;
+      text-align: center;
+      padding: 1.5rem 0;
+      margin-top: auto;
+      border-top: 1px solid #444;
+    }
+
+    footer .container {
+    }
+
+    footer p {
+      margin-bottom: 0;
+    }
+
+    footer a {
+      color: #80bfff;
+    }
+
+    footer a:hover {
+      color: #aaccff;
+    }
+
+    .reviews-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 1.5em;
+      align-items: start;
+    }
+
+    .reviews-column {
+    }
+
+    .column-heading {
+      font-size: 1.6em;
+      color: #e0e0e0;
+      margin-bottom: 1em;
+      padding-bottom: 0.5em;
+      border-bottom: 1px solid #444;
+      font-weight: 600;
+    }
+
+    .reviews-column ul {
+      margin-top: 1em;
+      padding-left: 0;
+    }
+
+    .review-item {
+      background-color: #2c2c2c;
+      border: 1px solid #444;
+      border-radius: 8px;
+      padding: 1.5em 1.8em;
+      margin-bottom: 1.5em;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .review-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(77, 166, 255, 0.08);
+    }
+
+    .reviews-column .no-reviews-message-inner {
+      color: #aaaaaa;
+      text-align: center;
+      padding: 2em 1em;
+      background-color: rgba(44, 44, 44, 0.3);
+      border-radius: 5px;
+      margin-top: 1em;
+    }
+
+    @media (max-width: 768px) {
+      .reviews-columns {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+    }
+
+    main {
+      flex-grow: 1;
+      padding: 2rem 0 3rem;
+    }
+
+    h2 {
+      font-size: 2em;
+      text-align: center;
+      margin-top: 2em;
+      margin-bottom: 1em;
+      padding-top: 1em;
+    }
+    .logout-button {
+      color: #ff6b6b;
+      font-weight: bold;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+    }
+
+    .logout-button:hover {
+      color: #ff8f8f;
+      background-color: #443030;
+    }
+
+
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+<header>
+  <div class="container">
+    <div class="logo">R&T</div>
+    <div class="user-actions">
+      <div class="user-info">
+        <span th:text="${username}"></span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="/logout" class="logout-button">Вийти</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="container">
+    <h1>Кабінет компанії</h1>
+        <p class="welcome-message">Вітаємо, <strong th:text="${companyName}"></strong>!</p>
+        <div th:if="${reviews == null or reviews.isEmpty()}">
+          <h2 style="border-top: none;">Відгуки про вашу компанію</h2> <p class="no-reviews-message">Ще немає відгуків про вашу компанію.</p>
+        </div>
+        <p class="welcome-message">Ваша роль: <strong th:text="${role}"></strong>!</p>
+        <div th:if="${reviews != null and !reviews.isEmpty()}">
+          <h2 style="margin-top: 0;">Відгуки про вашу компанію</h2>
+        </div>
+      <div class="reviews-columns"> <div class="reviews-column confirmed-reviews">
+        <h3 class="column-heading">Підтверджені</h3>
+        <ul>
+          <li class="review-item" th:each="review :${reviews}" th:if="${review.confirmed == true}">
+            <p><strong>Користувач:</strong> <span th:text="${review.user.username}">login</span></p>
+            <p><strong>Email:</strong> <span th:text="${review.user.email}">email@example.com</span></p>
+            <p><strong>Оцінка:</strong> <span th:text="${review.rating}">0</span>/5</p>
+            <p><strong>Відгук:</strong> <span th:text="${review.content}">Текст відгуку</span></p>
+          </li>
+        </ul>
+      </div>
+
+        <div class="reviews-column pending-reviews">
+          <h3 class="column-heading">Очікують підтвердження</h3>
+          <ul>
+            <li class="review-item" th:each="review :${reviews}" th:if="${review.confirmed == false}">
+              <p><strong>Користувач:</strong> <span th:text="${review.user.username}">login</span></p>
+              <p><strong>Email:</strong> <span th:text="${review.user.email}">email@example.com</span></p>
+              <p><strong>Оцінка:</strong> <span th:text="${review.rating}">0</span>/5</p>
+              <p><strong>Відгук:</strong> <span th:text="${review.content}">Текст відгуку</span></p>
+            </li>
+          </ul>
+        </div>
+
+      </div> </div> </div> </main>
+<footer>
+  <div class="container">
+    <p>&copy; 2025 R&T. Всі права захищено.</p>
+  </div>
+</footer>
+</body>
+</html>
